@@ -1,0 +1,149 @@
+# Session file started:  2016/05/24 17:00:57
+# CFX-14.0 build 2011.10.10-23.01
+
+# To avoid unnecessary file pre-processing and modifications, include
+# COMMAND FILE at the top of your session file.
+# If it is not included, the file is assumed to be older and will be
+# modified for backward compatibility.
+COMMAND FILE:
+  CFX Post Version = 14.0
+END
+
+# =====================================================================
+# FILE INFORMATION
+# =====================================================================
+
+# File is used to print images from CFD post in every View during specified timepoints
+# To attain good image quality follow these guidelines
+# Image show be in PNG format (best compression, lossless)
+# White background
+# Either set pixel width manually according to size (or scale according to screen size 200%/300%)
+# 1 inch is about 100 pixels, so 300 dpi for a 2"x3" image is 600px vs 900 px
+
+# COMMAND TO RUN: start C:\"Program Files"\"ANSYS Inc"\v140\CFD-Post\bin\cfdpost.exe -batch dir\to\cse\file
+
+# ---------------------------------------------------------------------
+# LOAD STATE
+# ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+# INPUTS
+# ---------------------------------------------------------------------
+
+# List out the time points to cycle through
+!@timesteps = (20500,21000,21500,22000,22500,23000,23500,24000,24500,25000);
+
+# Specify the write directory for the images (number corresponds to the View)
+!$dir1 = 'D:\PS8mmSteady\nothing_';
+!$dir2 = 'D:\PS8mmSteady\WSS_';
+!$dir3 = 'D:\PS8mmSteady\clotIsovolume_';
+!$dir4 = 'D:\PS8mmSteady\streamlines3D_';
+
+# ---------------------------------------------------------------------
+# SIMULATION ENGINE
+# ---------------------------------------------------------------------
+
+# Generate a for loop that goes through each timestep in the array
+!foreach $ts ( @timesteps) {
+
+# Load the current timestep value
+> load timestep = $ts
+
+# Find the corresponding value for the time
+!$time = getValue( "DATA READER", "Current Timevalue");
+
+# Append each directory with time 
+!$curDir1 = "$dir1$time";
+!$curDir2 = "$dir2$time";
+!$curDir3 = "$dir3$time";
+!$curDir4 = "$dir4$time";
+
+# Go to the view panel 1
+>setViewportView cmd=set, view=/VIEW:View 1, viewport=1
+
+# Settings for printing images from view 1 
+HARDCOPY:
+  Antialiasing = On
+  Hardcopy Filename = $curDir1
+  Hardcopy Format = png
+  Hardcopy Tolerance = 0.0001
+  Image Height = 600
+  Image Scale = 100
+  Image Width = 600
+  JPEG Image Quality = 80
+  Screen Capture = Off
+  Use Screen Size = On
+  White Background = On
+END
+
+# Print the image from the current view
+>print
+
+# Go to the view panel 2
+>setViewportView cmd=set, view=/VIEW:View 2, viewport=1
+
+# Settings for printing images from view 2
+HARDCOPY:
+  Antialiasing = On
+  Hardcopy Filename = $curDir2
+  Hardcopy Format = png
+  Hardcopy Tolerance = 0.0001
+  Image Height = 600
+  Image Scale = 100
+  Image Width = 600
+  JPEG Image Quality = 80
+  Screen Capture = Off
+  Use Screen Size = On
+  White Background = On
+END
+
+# Print the image from the current view
+>print
+
+# Go to the view panel 3
+>setViewportView cmd=set, view=/VIEW:View 3, viewport=1
+
+# Settings for printing images from view 3
+HARDCOPY:
+  Antialiasing = On
+  Hardcopy Filename = $curDir3
+  Hardcopy Format = png
+  Hardcopy Tolerance = 0.0001
+  Image Height = 600
+  Image Scale = 100
+  Image Width = 600
+  JPEG Image Quality = 80
+  Screen Capture = Off
+  Use Screen Size = On
+  White Background = On
+END
+
+# Print the image from the current view
+>print
+
+# Go to the view panel 4
+>setViewportView cmd=set, view=/VIEW:View 4, viewport=1
+
+# Settings for printing images from view 4
+HARDCOPY:
+  Antialiasing = On
+  Hardcopy Filename = $curDir4
+  Hardcopy Format = png
+  Hardcopy Tolerance = 0.0001
+  Image Height = 600
+  Image Scale = 100
+  Image Width = 600
+  JPEG Image Quality = 80
+  Screen Capture = Off
+  Use Screen Size = On
+  White Background = On
+END
+
+# Print the image from the current view
+>print
+
+# End the for loop
+!}
+
+# Session file stopped:  2016/05/24 17:05:00
+
