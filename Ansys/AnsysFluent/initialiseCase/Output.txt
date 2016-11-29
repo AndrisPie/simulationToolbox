@@ -1,0 +1,12 @@
+file/read fluentNew.msh
+mesh/scale 0.001 0.001 0.001
+define/models/unsteady-2nd-order yes
+define/materials/change-create air blood yes constant 1060 no no yes constant 0.0035 no no no yes
+define/user-defined/compiled-functions/compile libudf yes flowAt0p1007.c windkesselWithAvgV2.c
+
+
+define/user-defined/compiled-functions/load libudf
+define/user-defined/user-defined-scalars 8 yes no  yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default" yes "mass flow rate" "default"
+define/boundary-conditions/velocity-inlet inlet no no yes yes yes yes "udf" "flowAt0p1007::libudf" no 0 no yes no yes no yes no yes no yes no yes no yes no yes no 0.04 no 0 no 2.2 no 0 no 0 no 0 no 0 no 0 
+define/boundary-conditions/pressure-outlet outlet_mca yes yes "udf" "pressure::libudf" no yes yes yes yes yes yes yes yes yes no 0 no 0 no 0 no 0 no 0 no 0 no 0 no 0 no no no
+define/boundary-conditions/pressure-outlet outlet_aca yes yes "udf" "pressure::libudf" no yes yes yes yes yes yes yes yes yes no 0 no 0 no 0 no 0 no 0 no 0 no 0 no 0 no no no
