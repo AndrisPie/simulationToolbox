@@ -27,8 +27,6 @@
 
 #define ELindex 3
 
-int CLOTID_array[] = {28,29,30,31};
-
 /* ----------- */
 /* Definitions */
 /* ----------- */

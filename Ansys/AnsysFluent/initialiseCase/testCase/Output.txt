@@ -1,4 +1,4 @@
-file/read the_mesh_file.msh
+file/read fluentNew.msh
 mesh/scale 0.001 0.001 0.001
 define/models/unsteady-2nd-order yes
 define/materials/change-create air blood yes constant 1060 no no yes constant 0.0035 no no no yes
@@ -11,7 +11,6 @@ define/user-defined/function-hooks/initialization "initialise_clot_domain::libud
 define/user-defined/function-hooks/execute-at-end "execute::libudf"
 
 define/user-defined/user-defined-scalars 8 yes no  yes "mass flow rate" "default" yes "none" "default" yes "mass flow rate" "default" yes "none" "default" yes "mass flow rate" "default" yes "none" "default" yes "none" "default" yes "none" "default"
-define/materials/change-create blood blood no no no no no no yes defined-per-uds 0 constant 5.3e-08 1 constant 0 2 constant 5.3e-08 3 constant 0 4 constant 5.3e-08 5 constant 0 6 constant 0 7 constant 0 -1 no
 define/user-defined/user-defined-memory 20
 define/user-defined/user-defined-node-memory 20
 define/boundary-conditions/velocity-inlet inlet no no yes yes yes yes "udf" "flowAt0p1007::libudf" no 0 no yes no yes no yes no yes no yes no yes no yes no yes no 0.04 no 0 no 2.2 no 0 no 0 no 0 no 0 no 0 
@@ -44,12 +43,4 @@ solve/initialize/set-defaults/uds-2 2.2
 file/auto-save/data-frequency 1000
 file/auto-save/append-file-name-with flow-time 6
 file/auto-save/root-name dataFile
-solve/set/equations/uds-0 no
-solve/set/equations/uds-1 no
-solve/set/equations/uds-2 no
-solve/set/equations/uds-3 no
-solve/set/equations/uds-4 no
-solve/set/equations/uds-5 no
-solve/set/equations/uds-6 no
-solve/set/equations/uds-7 no
 file/write-case-data start.cas
